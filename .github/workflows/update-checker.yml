@@ -30,7 +30,7 @@ jobs:
       id: getHash
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
-        echo "::GITHUB_OUTPUT name=commitHash::$(git rev-parse HEAD)" >> $GITHUB_ENV
+        echo "::GITHUB_OUTPUT name=commitHash::$(git rev-parse HEAD)"
 
     - name: Compare Commit Hash
       id: cacheHash
@@ -42,7 +42,7 @@ jobs:
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash >> $GITHUB_ENV
+        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
 
     - name: Trigger build
       if: steps.cacheHash.outputs.cache-hit != 'true'
