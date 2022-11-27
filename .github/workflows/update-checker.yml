@@ -30,14 +30,14 @@ jobs:
       id: getHash
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
-        echo "::GITHUB_OUTPUT name=commitHash::$(git rev-parse HEAD)" $GITHUB_ENV
+        echo "::GITHUB_OUTPUT name=commitHash::$(git rev-parse HEAD)"
 
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
         path: .commitHash
-        key: HEAD-${{ steps.getHash.outputs.commitHash }}
+        key: HEAD-${{ steps.getHash.outputs.commitHash }} $GITHUB_OUTPUT
 
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
