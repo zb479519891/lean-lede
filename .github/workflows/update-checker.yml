@@ -52,9 +52,7 @@ jobs:
         event-type: Source Code Update
 
     - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
+      uses: GitRML/delete-workflow-runs@v2
       with:
-        token: ${{ secrets.AUTH_PAT }}
-        repository: ${{ github.repository }}
         retain_days: 1
         keep_minimum_runs: 1
